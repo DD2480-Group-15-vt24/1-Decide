@@ -59,6 +59,12 @@ Windows: `python -m pip install -r requirements.txt`
 Mac/Linux: `python3 main.py`
 Windows: `python main.py`
 
+## Code style
+
+Ruff is used for linting the project. Lint the code by using `ruff .`
+
+Black is used for formatting the procjet. Format the code by using `black .`
+
 ## Running the test suite
 
 TODO...
