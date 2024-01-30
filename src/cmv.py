@@ -37,11 +37,11 @@ class CMV:
         if Input.NUMPOINTS < 3 or Input.Parameters.RADIUS1 < 0:
             return
 
-        for i in range(Input.NUMPOINTS-2):
+        for i in range(Input.NUMPOINTS - 2):
             circumradius = Utils.calc_circumradius(self, Input.POINTS[i], Input.POINTS[i+1], Input.POINTS[i+2])
             if circumradius > Input.Parameters.RADIUS1:
                 self.cmv[1] = True
-                return
+                break
 
     def LIC_2(self):
         return None
@@ -66,13 +66,12 @@ class CMV:
         if Input.NUMPOINTS < 3 or Input.Parameters.K_PTS < 1 or Input.Parameters.K_PTS > (Input.NUMPOINTS-2):
             return
 
-        for i in range(Input.NUMPOINTS-Input.Parameters.K_PTS-1):
+        for i in range(Input.NUMPOINTS - Input.Parameters.K_PTS - 1):
             distance = Utils.calc_distance(self, Input.POINTS[i], Input.POINTS[i+Input.Parameters.K_PTS+1])
-            print(distance)
 
             if distance > Input.Parameters.LENGTH1:
                 self.cmv[7] = True
-                return
+                break
     
     def LIC_8(self):
         return None
@@ -81,8 +80,20 @@ class CMV:
         return None
 
     def LIC_10(self):
-        return None
-    
+        """At least one set of three data points, separated indexically by E_PTS and K_PTS respectively, 
+        generate a triangle with an area greater than AREA1 --> cmv[10] = True
+        Special conditions: NUMPOINTS ≥ 5, 1 ≤ E_PTS, 1 ≤ F_PTS, E_PTS + F_PTS ≤ (NUMPOINTS - 3)
+        """
+        if Input.NUMPOINTS < 5 or Input.Parameters.E_PTS < 1 or Input.Parameters.F_PTS < 1 or (Input.Parameters.E_PTS + Input.Parameters.F_PTS) > (Input.NUMPOINTS - 3):
+            return
+
+        for i in range(Input.NUMPOINTS - Input.Parameters.E_PTS - Input.Parameters.F_PTS - 2):
+            area = Utils.calc_triangle_area(self, Input.POINTS[i], Input.POINTS[i+Input.Parameters.E_PTS+1], Input.POINTS[i+Input.Parameters.E_PTS+Input.Parameters.F_PTS+2])
+
+            if area > Input.Parameters.AREA1:
+                self.cmv[10] = True
+                break
+
     def LIC_11(self):
         return None
     
@@ -94,3 +105,22 @@ class CMV:
     
     def LIC_14(self):
         return None
+
+if __name__ == "__main__":
+    Input.NUMPOINTS = 5
+
+    Input.POINTS = np.zeros((Input.NUMPOINTS, 2), dtype=float)
+    Input.POINTS[0] = (1,1)
+    Input.POINTS[2] = (2,1)
+    Input.POINTS[4] = (2,2)
+
+    Input.Parameters.RADIUS1 = 1.5
+    Input.Parameters.LENGTH1 = 0.5
+    Input.Parameters.AREA1 = 0.25
+    Input.Parameters.K_PTS = 1
+    Input.Parameters.E_PTS = 1
+    Input.Parameters.F_PTS = 1
+
+    result = CMV(np.zeros(15, dtype=bool))
+    CMV.check_LICs(result)
+    print(result)

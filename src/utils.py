@@ -1,7 +1,7 @@
 import numpy as np
 
 class Utils:
-    
+
     def calc_distance(self, x, y):
         """Calculates Euclidian distance between two planar data points"""
         return np.linalg.norm(x-y)
@@ -12,4 +12,8 @@ class Utils:
         b = Utils.calc_distance(self, x, z)
         c = Utils.calc_distance(self, y, z)
 
-        return (a*b*c) / (((a+b+c))*(b+c-a)*(c+a-b)*(a+b-c))**(1/2) # Circumradius
+        return (a*b*c) / (((a+b+c))*(b+c-a)*(c+a-b)*(a+b-c))**(1/2)
+    
+    def calc_triangle_area(self, x, y, z):
+        """Calculates the area of a triangle using cross product"""
+        return 0.5 * np.abs(np.cross(x-y, x-z))
