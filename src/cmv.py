@@ -50,8 +50,22 @@ class CMV:
         return None
 
     def LIC_4(self):
-        return None
-    
+        """At least one set of Q_PTS, indexically consecutive, that exist in more than QUADS quadrants --> cmv[4] = True.
+        Special conditions: 2 ≤ Q_PTS ≤ NUMPOINTS, 1 ≤ QUADS ≤ 3
+        """
+        if Input.Parameters.Q_PTS < 2 or Input.Parameters.Q_PTS > Input.NUMPOINTS or Input.Parameters.QUADS < 1 or Input.Parameters.QUADS > 3:
+            return
+        
+        for i in range(Input.NUMPOINTS - Input.Parameters.Q_PTS):
+            occupied_quadrants = np.zeros(4, dtype=bool)
+
+            for j in range(Input.Parameters.Q_PTS):
+                Utils.determine_quadrant(self, Input.POINTS[i+j], occupied_quadrants)
+            
+            if Input.Parameters.QUADS < occupied_quadrants.sum():
+                self.cmv[4] = True
+                break
+        
     def LIC_5(self):
         return None
     
@@ -127,26 +141,3 @@ class CMV:
     
     def LIC_14(self):
         return None
-
-if __name__ == "__main__":
-    Input.NUMPOINTS = 5
-
-    Input.POINTS = np.zeros((Input.NUMPOINTS, 2), dtype=float)
-    Input.POINTS[0] = (1,1)
-    Input.POINTS[1] = (2,1)
-    Input.POINTS[2] = (2,2)
-    Input.POINTS[4] = (3,2)
-
-    Input.Parameters.RADIUS1 = 0.5
-    Input.Parameters.RADIUS2 = 2
-    Input.Parameters.LENGTH1 = 0.5
-    Input.Parameters.AREA1 = 0.25
-    Input.Parameters.K_PTS = 1
-    Input.Parameters.E_PTS = 1
-    Input.Parameters.F_PTS = 1
-    Input.Parameters.A_PTS = 1
-    Input.Parameters.B_PTS = 1
-
-    result = CMV(np.zeros(15, dtype=bool))
-    CMV.check_LICs(result)
-    print(result)

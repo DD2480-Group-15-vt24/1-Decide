@@ -17,3 +17,16 @@ class Utils:
     def calc_triangle_area(self, x, y, z):
         """Calculates the area of a triangle using cross product"""
         return 0.5 * np.abs(np.cross(x-y, x-z))
+
+    def determine_quadrant(self, point, array):
+        """Determines which quadrant contains a given data point"""
+        if point[0] >= 0:
+            if point[1] >= 0:
+                array[0] = True
+            else:
+                array[3] = True
+        else:
+            if point[1] >= 0:
+                array[1] = True
+            else:
+                array[2] = True
