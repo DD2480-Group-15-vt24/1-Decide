@@ -31,12 +31,13 @@ class CMV:
         """
         length = Input.Parameters.LENGTH1
         if length < 0:
-            False
+            return
         for i in range(0, Input.NUMPOINTS-1):
             if(Utils.minimum_distance(Input.POINTS[i], Input.POINTS[i+1], length)):
-                return True
+                self.cmv[0] = True
+                return
         else:
-            return False
+            return
 
     ## LIC_1
     # At least one set of three consecutive data points cannot all be contained
