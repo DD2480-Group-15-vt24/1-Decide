@@ -49,12 +49,13 @@ class CMV:
         """
         input_area = Input.Parameters.AREA1
         if Input.NUMPOINTS < 3:
-            return False
+            return
         for i in range(Input.NUMPOINTS -2):
             calc_area = Utils.triangle_area(Input.POINTS[i], Input.POINTS[i+1], Input.POINTS[i+2])
             if(calc_area > input_area):
-                return True
-        return False
+                self.cmv[3] = True
+                return
+        return
 
     ## LIC_4
     def LIC_4(self):
