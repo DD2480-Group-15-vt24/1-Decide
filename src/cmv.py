@@ -101,7 +101,29 @@ class CMV:
         return None
 
     def LIC_13(self):
-        return None
+        """Condition 1: At least one set of three data points seperated indexically by A_PTS and B_PTS respectively, CANNOT all be contained
+        within or on a circle of radius RADIUS1.
+        Condition 2: At least one set of three data points seperated indexically by A_PTS and B_PTS respectively, CAN all be contained
+        within or on a circle of radius RADIUS2.
+        The data points for each condition need not be the same.
+        Special Conditions: NUMPOINTS ≥ 5, 0 ≤ RADIUS2
+        """
+        if Input.NUMPOINTS < 5 or Input.Parameters.RADIUS2 < 0:
+            return
+
+        cond1 = False
+        cond2 = False
+        for i in range(Input.NUMPOINTS - Input.Parameters.A_PTS - Input.Parameters.B_PTS - 2):
+            circumradius = Utils.calc_circumradius(self, Input.POINTS[i], Input.POINTS[i+Input.Parameters.A_PTS+1], Input.POINTS[i+Input.Parameters.A_PTS+Input.Parameters.B_PTS+2])
+
+            if circumradius > Input.Parameters.RADIUS1:
+                cond1 = True
+            if circumradius <= Input.Parameters.RADIUS2:
+                cond2 = True
+            
+            if cond1 and cond2:
+                self.cmv[13] = True
+                break
     
     def LIC_14(self):
         return None
@@ -111,15 +133,19 @@ if __name__ == "__main__":
 
     Input.POINTS = np.zeros((Input.NUMPOINTS, 2), dtype=float)
     Input.POINTS[0] = (1,1)
-    Input.POINTS[2] = (2,1)
-    Input.POINTS[4] = (2,2)
+    Input.POINTS[1] = (2,1)
+    Input.POINTS[2] = (2,2)
+    Input.POINTS[4] = (3,2)
 
-    Input.Parameters.RADIUS1 = 1.5
+    Input.Parameters.RADIUS1 = 0.5
+    Input.Parameters.RADIUS2 = 2
     Input.Parameters.LENGTH1 = 0.5
     Input.Parameters.AREA1 = 0.25
     Input.Parameters.K_PTS = 1
     Input.Parameters.E_PTS = 1
     Input.Parameters.F_PTS = 1
+    Input.Parameters.A_PTS = 1
+    Input.Parameters.B_PTS = 1
 
     result = CMV(np.zeros(15, dtype=bool))
     CMV.check_LICs(result)
