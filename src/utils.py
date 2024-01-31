@@ -10,3 +10,10 @@ class Utils:
         c = np.linalg.norm(y-z)
 
         return (a*b*c) / (((a+b+c))*(b+c-a)*(c+a-b)*(a+b-c))**(1/2) # Circumradius
+
+
+    #calculate the minimum distance and compare with parameter length
+    def minimum_distance(pointA, pointB, length):
+        if length < math.dist(pointA,pointB):
+            return True
+        return False
