@@ -10,3 +10,7 @@ class Utils:
         c = np.linalg.norm(y-z)
 
         return (a*b*c) / (((a+b+c))*(b+c-a)*(c+a-b)*(a+b-c))**(1/2) # Circumradius
+
+    def triangle_area(pointA, pointB, pointC):
+        area = 1/2 * np.abs(pointA[0]*(pointB[1]-pointC[1]) + pointB[0]*(pointC[1]-pointA[1]) + pointC[0]*(pointA[1]-pointB[1]))
+        return area
