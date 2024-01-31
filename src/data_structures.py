@@ -1,8 +1,8 @@
 import numpy as np
 
 class Input:
-    def __init__(self, inputType):
-        self.value = inputType
+    def __init__(self, input_type):
+        self.value = input_type
 
     def __repr__(self):
         return f'{self.value}'
@@ -36,10 +36,3 @@ class Input:
         LENGTH2 = 0
         RADIUS2 = 0
         AREAD2 = 0
-
-if __name__ == "__main__":
-    print(Input.LCM)
-    print(Input.PUV)
-    print(Input.NUMPOINTS)
-    print(Input.POINTS)
-    print(Input.Parameters.LENGTH1)
