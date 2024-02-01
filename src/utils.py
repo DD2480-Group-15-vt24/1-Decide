@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 class Utils:
 
@@ -17,3 +18,15 @@ class Utils:
     def calc_triangle_area(self, x, y, z):
         """Calculates the area of a triangle using cross product"""
         return 0.5 * np.abs(np.cross(x-y, x-z))
+
+    def minimum_distance(pointA, pointB, length):
+        """Calculates the distance and compares it with parameter length"""
+        if length < math.dist(pointA,pointB):
+            return True
+        return False
+
+    def maximum_distance(pointA, pointB, length):
+        """Calculates the distance and compares it with parameter length"""
+    if length > math.dist(pointA, pointB):
+        return True
+    return False
