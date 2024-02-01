@@ -1,36 +1,22 @@
-# Importing the NumPy library, a fundamental package for scientific computing with Python.
-import numpy as np
+## LIC_2
+def LIC_2(self):
+    """
+    There exists at least one set of three consecutive data points which form an angle such that:
+    angle < (PI - EPSILON) or angle > (PI + EPSILON)
+    The second of the three consecutive points is always the vertex of the angle.
+    If either the first point or the last point (or both) coincides with the vertex,
+    the angle is undefined and the LIC is not satisfied by those three points.
+    (0 <= EPSILON < PI)
+    """
+    if Input.NUMPOINTS < 3:
+        return
 
-# Global declarations 
+    for i in range(0, Input.NUMPOINTS-2):
+        angle = Utils.calcAngle(Input.POINTS[i], Input.POINTS[i+1], Input.POINTS[i+2])
 
-NUMPOINTS = 0  # Number of planar data points
-POINTS = []    # Array containing the coordinates of data points
-PARAMETERS = {
-EPSILON:0.0    # The EPSILON parameter for lic_2
-}
+        # Check if the angle is within the specified range
+        if angle < (np.pi - Input.Parameters.EPSILON) or angle > (np.pi + Input.Parameters.EPSILON):
+            self.cmv[2] = True
+            return
 
 
-# CMV condition_2 
-def lic_2(POINTS, EPSILON):
-    # Check if the EPSILON value is within valid range (0 <= EPSILON < pi)
-    if not (0 <= EPSILON < np.pi):
-        return False
-    # Iterate through the points to check the angle condition
-    for i in range(NUMPOINTS - 2):
-        x1, y1 = POINTS[i]      # coordinates of the current point.
-        x2, y2 = POINTS[i + 1]  # Coordinates of the second point in the set
-        x3, y3 = POINTS[i + 2]  # Coordinates of the third point in the set
-
-        # Check if the angle is undefined(when two consecutive points coincide)
-        if (x1 == x2 and y1 == y2) or (x2 == x3 and y2 == y3):
-            continue # Skip to the next iteration if the angle is undefined
-
-        # Calculate the angle formed by three consecutive points
-        angle = np.arctan2(y2 - y1, x2 - x1) - np.arctan2(y3 - y2, x3 - x2)
-
-        # Normalize the angle to be in the range [0, 2*pi)
-        angle = (angle + 2 * np.pi) % (2 * np.pi)
-        if angle < (np.pi - EPSILON) or angle > (np.pi + EPSILON):
-            return True
-    # Return False if the condition is not met for any set of points
-    return False
