@@ -17,3 +17,9 @@ class Utils:
     def calc_triangle_area(self, x, y, z):
         """Calculates the area of a triangle using cross product"""
         return 0.5 * np.abs(np.cross(x-y, x-z))
+
+    def angle(vertex, first, last):
+    a = [vertex[0]-first[0], vertex[1]-first[1]]
+    b = [vertex[0]-last[0], vertex[1]-last[1]]
+    return np.arccos(np.dot(a, b)/(np.linalg.norm(a)*np.linalg.norm(b))
+
