@@ -27,8 +27,20 @@ class CMV:
         self.LIC_14()
 
     def LIC_0(self):
-        return None
+        """There exists at least one set of two consecutive data points that are a distance greater than
+            the length, LENGTH1, apart. (0 ≤ LENGTH1)
+        """
+        length = Input.Parameters.LENGTH1
+        if length < 0:
+            return
+        for i in range(0, Input.NUMPOINTS-1):
+            if(Utils.minimum_distance(Input.POINTS[i], Input.POINTS[i+1], length)):
+                self.cmv[0] = True
+                return
+        else:
+            return
 
+ 
     def LIC_1(self):
         """At least one set of three consecutive data points cannot all be contained
         within or on a circle of radius RADIUS1 --> cmv[1] = True
