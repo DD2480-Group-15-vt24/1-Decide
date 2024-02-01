@@ -1,4 +1,4 @@
-## LIC_2
+# LIC_2
 def LIC_2(self):
     """
     There exists at least one set of three consecutive data points which form an angle such that:
@@ -12,7 +12,7 @@ def LIC_2(self):
         return
 
     for i in range(0, Input.NUMPOINTS-2):
-        angle = Utils.calcAngle(Input.POINTS[i], Input.POINTS[i+1], Input.POINTS[i+2])
+        angle = Utils.calcAngle(self, Input.POINTS[i], Input.POINTS[i+1], Input.POINTS[i+2])
 
         # Check if the angle is within the specified range
         if angle < (np.pi - Input.Parameters.EPSILON) or angle > (np.pi + Input.Parameters.EPSILON):
