@@ -1,19 +1,12 @@
-import numpy as np
+#LIC_5
+def LIC_5(self):
+        """There exists at least one set of two consecutive data points, (X[i],Y[i]) and (X[j],Y[j]),
+        such that X[j] - X[i] < 0. (where i = j-1)
+        """
+        if Input.NUMPOINTS < 2:
+            return
 
-# Global declarations 
-NUMPOINTS = 0  # Number of planar data points
-POINTS = []    # Array containing the coordinates of data points
-
-# CMV condition_5 
-
-def lic_5(POINTS):
-    # Iterate through the points to check the condition
-    for i in range(NUMPOINTS- 1):
-        x1, y1 = POINTS[i]        # Coordinates of the current point (X[i], Y[i])
-        x2, y2 = POINTS[i + 1]    # # Coordinates of the next point (X[i+1], Y[i+1])
-
-        # Check if X[j] - X[i] < 0
-        if x2 - x1 < 0:
-            return True    # Return True if the condition is met for at least one set of points
-    # Return False if the condition is not met for any set of points
-    return False
+        for i in range(Input.NUMPOINTS - 1):
+            if Input.POINTS[i+1, 0] - Input.POINTS[i, 0] < 0:
+                self.cmv[5] = True
+                break
