@@ -116,8 +116,6 @@ class CMV:
                 if Utils.maximum_distance(points[i], points[i+k_pts], length_2):
                     self.cmv[12] = True
                     return
-                return
-            return
         return
 
 
