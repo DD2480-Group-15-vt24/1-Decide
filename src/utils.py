@@ -23,6 +23,37 @@ class Utils:
         """Calculates the area of a triangle using cross product"""
         return 0.5 * np.abs(np.cross(x-y, x-z))
 
-    def triangle_area(pointA, pointB, pointC):
-        area = 1/2 * np.abs(pointA[0]*(pointB[1]-pointC[1]) + pointB[0]*(pointC[1]-pointA[1]) + pointC[0]*(pointA[1]-pointB[1]))
-        return area
+    def determine_quadrant(self, point, array):
+        """Determines which quadrant contains a given data point"""
+    x, y = point  
+    
+    if x >= 0 and y >= 0:
+        array[0] = True
+        return
+    if x < 0 and y >= 0:
+        array[1] = True
+        return
+    if x < 0 and y < 0:
+        array[2] = True
+        return
+    if x >= 0 and y < 0:
+        array[3] = True
+        return
+
+def calcAngle(self, p1, v, p2):
+        """
+        calcAngle method calculates the angle between three points (p1,v,p2) 
+        and returns the angle in radians. 
+        """
+        d1 = Utils.calc_distance(self, p1, v)
+        d2 = Utils.calc_distance(self, p2, v)
+        d3 = Utils.calc_distance(self, p1, p2)
+
+        # Check for undefined angle
+        if d1 == 0 or d2 == 0:
+            return None
+
+        cos_theta = (d1**2 + d2**2 - d3**2) / (2 * d1 * d2)
+        angle = np.arccos(np.clip(cos_theta, -1.0, 1.0))
+
+        return angle
