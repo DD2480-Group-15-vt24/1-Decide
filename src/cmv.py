@@ -1,5 +1,6 @@
 from data_structures import Input, np
 from utils import Utils
+import math
 
 class CMV:
     def __init__(self, array):
