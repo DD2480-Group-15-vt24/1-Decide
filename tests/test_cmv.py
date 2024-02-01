@@ -35,13 +35,29 @@ class test_CMV:
     def test_LIC_4_invalid(self):
         return
 
-
     def test_LIC_7_valid(self):
-        return
+        """Test the LIC_7 function with simple example data to generate a valid result"""
+        test = CMV(np.zeros(15, dtype=bool))
+
+        Input.NUMPOINTS = 3
+        Input.POINTS = np.array([[1,1], [2,1], [2,2]])
+        Input.Parameters.K_PTS = 1
+        Input.Parameters.LENGTH1 = 1
+        
+        CMV.LIC_7(test)
+        assert test.cmv[7], 'Condition for test_LIC_7_valid is False'
 
     def test_LIC_7_invalid(self):
-        return
+        """Test the LIC_7 function with simple example data to generate an invalid result"""
+        test = CMV(np.zeros(15, dtype=bool))
 
+        Input.NUMPOINTS = 3
+        Input.POINTS = np.array([[1,1], [2,1], [2,2]])
+        Input.Parameters.K_PTS = 1
+        Input.Parameters.LENGTH1 = 1.5
+        
+        CMV.LIC_7(test)
+        assert not test.cmv[7], 'Condition for test_LIC_7_valid is True'
 
     def test_LIC_10_valid(self):
         return
@@ -61,3 +77,5 @@ if __name__ == "__main__":
 
     instance.test_LIC_1_valid()
     instance.test_LIC_1_invalid()
+    instance.test_LIC_7_valid()
+    instance.test_LIC_7_invalid()
