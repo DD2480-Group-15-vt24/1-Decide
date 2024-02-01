@@ -44,11 +44,24 @@ class test_CMV:
     def test_LIC_2_invalid(self):
         return
     
+
     def test_LIC_3_valid(self):
-        return
+        Input.NUMPOINTS = 4
+        Input.POINTS = np.array([[0, 0], [1, 0], [1, 1], [0, 1]])
+        Input.Parameters.AREA1 = 0.5
+
+        test = CMV(np.zeros(15, dtype=bool))
+        CMV.LIC_3(test)
+        assert test.cmv[3], 'Condition for test_LIC_3_valid is False'
 
     def test_LIC_3_invalid(self):
-        return
+        Input.NUMPOINTS = 4
+        Input.POINTS = np.array([[0, 0], [1, 0], [1, 1], [0, 1]])
+        Input.Parameters.AREA1 = 2.0
+
+        test = CMV(np.zeros(15, dtype=bool))
+        CMV.LIC_3(test)
+        assert test.cmv[3], 'Condition for test_LIC_3_invalid is True'
 
     def test_LIC_4_valid(self):
         """Test the LIC_4 function with simple example data to generate a valid result"""
@@ -200,3 +213,7 @@ class test_CMV:
 
     def test_LIC_14_invalid(self):
         return
+
+
+if __name__ == "__main__":
+    tests = test_CMV()
