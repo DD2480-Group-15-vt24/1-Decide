@@ -12,8 +12,13 @@ class Utils:
         a = Utils.calc_distance(self, x, y)
         b = Utils.calc_distance(self, x, z)
         c = Utils.calc_distance(self, y, z)
-
-        return (a*b*c) / (((a+b+c))*(b+c-a)*(c+a-b)*(a+b-c))**(1/2)
+        return (a*b*c) / (((a+b+c))*(b+c-a)*(c+a-b)*(a+b-c))**(1/2) # Circumradius
+    
+    def minimum_distance(pointA, pointB, length):
+      """calculate the minimum distance and compare with parameter length"""
+        if length < math.dist(pointA,pointB):
+            return True
+        return False
     
     def calc_triangle_area(self, x, y, z):
         """Calculates the area of a triangle using cross product"""
@@ -27,6 +32,46 @@ class Utils:
 
     def maximum_distance(pointA, pointB, length):
         """Calculates the distance and compares it with parameter length"""
-    if length > math.dist(pointA, pointB):
-        return True
-    return False
+        if length > math.dist(pointA, pointB):
+            return True
+        return False
+
+    def angle(vertex, first, last):
+        a = [vertex[0]-first[0], vertex[1]-first[1]]
+        b = [vertex[0]-last[0], vertex[1]-last[1]]
+        return np.arccos(np.dot(a, b)/(np.linalg.norm(a)*np.linalg.norm(b))
+
+    def determine_quadrant(self, point, array):
+        """Determines which quadrant contains a given data point"""
+        x, y = point  
+
+        if x >= 0 and y >= 0:
+            array[0] = True
+            return
+        if x < 0 and y >= 0:
+            array[1] = True
+            return
+        if x < 0 and y < 0:
+            array[2] = True
+            return
+        if x >= 0 and y < 0:
+            array[3] = True
+            return
+     def calcAngle(self, p1, v, p2):
+              """
+              calcAngle method calculates the angle between three points (p1,v,p2) 
+              and returns the angle in radians. 
+              """
+              d1 = Utils.calc_distance(self, p1, v)
+              d2 = Utils.calc_distance(self, p2, v)
+              d3 = Utils.calc_distance(self, p1, p2)
+
+              # Check for undefined angle
+              if d1 == 0 or d2 == 0:
+                  return None
+
+              cos_theta = (d1**2 + d2**2 - d3**2) / (2 * d1 * d2)
+              angle = np.arccos(np.clip(cos_theta, -1.0, 1.0))
+
+              return angle
+
