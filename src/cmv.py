@@ -96,7 +96,7 @@ class CMV:
         if Input.Parameters.Q_PTS < 2 or Input.Parameters.Q_PTS > Input.NUMPOINTS or Input.Parameters.QUADS < 1 or Input.Parameters.QUADS > 3:
             return
         
-        for i in range(Input.NUMPOINTS - Input.Parameters.Q_PTS):
+        for i in range(Input.NUMPOINTS - Input.Parameters.Q_PTS + 1):
             occupied_quadrants = np.zeros(4, dtype=bool)
 
             for j in range(Input.Parameters.Q_PTS):
