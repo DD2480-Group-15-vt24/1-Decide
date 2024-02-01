@@ -1,5 +1,6 @@
 from data_structures import Input, np
 from utils import Utils
+import math
 
 class CMV:
     def __init__(self, array):
@@ -187,7 +188,35 @@ class CMV:
                 break
     
     def LIC_9(self):
-        return None
+    """There exists at least one set of three data points separated by exactly C PTS and D PTS
+    consecutive intervening points, respectively, that form an angle such that:
+    angle < (PI−EPSILON) or angle > (PI+EPSILON)
+    The second point of the set of three points is always the vertex of the angle. If either the first
+    point or the last point (or both) coincide with the vertex, the angle is undefined and the LIC
+    is not satisfied by those three points. When NUMPOINTS < 5, the condition is not met.
+    1 ≤ C PTS, 1 ≤ D PTS
+    C PTS+D PTS ≤ NUMPOINTS−3"""
+        c_pts = Input.Parameters.C_PTS
+        d_pts = Input.Parameters.D_PTS
+        points = Input.POINTS
+        epsilon = Input.Parameters.EPSILON
+
+        if Input.NUMPOINTS < 5 or Input.NUMPOINTS - 3 < c_pts + d_pts:
+            return
+        
+        for i in range(0, Input.NUMPOINTS):
+            if i + 2 + c_pts + d_pts >= Input.NUMPOINTS:
+                return
+            first_point = points[i]
+            vertex = points[i+1+c_pts]
+            last_point = points[i+2+c_pts+d_pts]
+            if np.array_equal(vertex, first_point) or np.array_equal(vertex, last_point):
+                continue
+            if Utils.angle(vertex, first_point, last_point) < (math.pi - epsilon) or Utils.angle(vertex, first_point, last_point) > (math.pi + epsilon):
+                self.cmv[9] = True
+                return
+        return
+
 
     def LIC_10(self):
         """At least one set of three data points, separated indexically by E_PTS and K_PTS respectively, 
