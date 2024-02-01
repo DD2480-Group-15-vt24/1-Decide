@@ -20,13 +20,17 @@ class Utils:
 
     def determine_quadrant(self, point, array):
         """Determines which quadrant contains a given data point"""
-        if point[0] >= 0:
-            if point[1] >= 0:
-                array[0] = True
-            else:
-                array[3] = True
-        else:
-            if point[1] >= 0:
-                array[1] = True
-            else:
-                array[2] = True
+    x, y = point  
+    
+    if x >= 0 and y >= 0:
+        array[0] = True
+        return
+    if x < 0 and y >= 0:
+        array[1] = True
+        return
+    if x < 0 and y < 0:
+        array[2] = True
+        return
+    if x >= 0 and y < 0:
+        array[3] = True
+        return
