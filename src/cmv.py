@@ -27,7 +27,18 @@ class CMV:
         self.LIC_14()
 
     def LIC_0(self):
-        return None
+        """There exists at least one set of two consecutive data points that are a distance greater than
+            the length, LENGTH1, apart. (0 ≤ LENGTH1)
+        """
+        length = Input.Parameters.LENGTH1
+        if length < 0:
+            return
+        for i in range(0, Input.NUMPOINTS-1):
+            if(Utils.minimum_distance(Input.POINTS[i], Input.POINTS[i+1], length)):
+                self.cmv[0] = True
+                return
+        else:
+            return
 
     def LIC_1(self):
         """At least one set of three consecutive data points cannot all be contained
@@ -47,7 +58,18 @@ class CMV:
         return None
 
     def LIC_3(self):
-        return None
+        """There exists at least one set of three consecutive data points that are the vertices of a triangle
+            with area greater than AREA1. (0 ≤ AREA1)
+        """
+        input_area = Input.Parameters.AREA1
+        if Input.NUMPOINTS < 3:
+            return
+        for i in range(Input.NUMPOINTS -2):
+            calc_area = Utils.calc_triangle_area(self, Input.POINTS[i], Input.POINTS[i+1], Input.POINTS[i+2])
+            if(calc_area > input_area):
+                self.cmv[3] = True
+                return
+        return
 
     def LIC_4(self):
         """At least one set of Q_PTS, indexically consecutive, that exist in more than QUADS quadrants --> cmv[4] = True.
@@ -67,7 +89,16 @@ class CMV:
                 break
         
     def LIC_5(self):
-        return None
+        """There exists at least one set of two consecutive data points, (X[i],Y[i]) and (X[j],Y[j]),
+        such that X[j] - X[i] < 0. (where i = j-1)
+        """
+        if Input.NUMPOINTS < 2:
+            return
+
+        for i in range(Input.NUMPOINTS - 1):
+            if Input.POINTS[i+1, 0] - Input.POINTS[i, 0] < 0:
+                self.cmv[5] = True
+                break
     
     def LIC_6(self):
         return None

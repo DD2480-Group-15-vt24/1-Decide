@@ -11,8 +11,13 @@ class Utils:
         a = Utils.calc_distance(self, x, y)
         b = Utils.calc_distance(self, x, z)
         c = Utils.calc_distance(self, y, z)
-
-        return (a*b*c) / (((a+b+c))*(b+c-a)*(c+a-b)*(a+b-c))**(1/2)
+        return (a*b*c) / (((a+b+c))*(b+c-a)*(c+a-b)*(a+b-c))**(1/2) # Circumradius
+    
+    def minimum_distance(pointA, pointB, length):
+      """calculate the minimum distance and compare with parameter length"""
+        if length < math.dist(pointA,pointB):
+            return True
+        return False
     
     def calc_triangle_area(self, x, y, z):
         """Calculates the area of a triangle using cross product"""
