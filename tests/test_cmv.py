@@ -61,7 +61,7 @@ class test_CMV:
 
         test = CMV(np.zeros(15, dtype=bool))
         CMV.LIC_3(test)
-        assert test.cmv[3], 'Condition for test_LIC_3_invalid is True'
+        assert not test.cmv[3], 'Condition for test_LIC_3_invalid is True'
 
     def test_LIC_4_valid(self):
         """Test the LIC_4 function with simple example data to generate a valid result"""
