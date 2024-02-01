@@ -57,24 +57,24 @@ class CMV:
 
       # LIC_2
     def LIC_2(self):
-    """
-    At least one set of three consecutive data points which form an angle such that:
-    angle < (PI - EPSILON) or angle > (PI + EPSILON)
-    The second of the three consecutive points is always the vertex of the angle.
-    If either the first point or the last point (or both) coincides with the vertex,
-    the angle is undefined and the LIC is not satisfied by those three points.
-    (0 <= EPSILON < PI)
-    """
-    if Input.NUMPOINTS < 3:
-        return
-
-    for i in range(0, Input.NUMPOINTS-2):
-        angle = Utils.calcAngle(self, Input.POINTS[i], Input.POINTS[i+1], Input.POINTS[i+2])
-
-        # Check if the angle is within the specified range
-        if angle < (np.pi - Input.Parameters.EPSILON) or angle > (np.pi + Input.Parameters.EPSILON):
-            self.cmv[2] = True
+        """
+        At least one set of three consecutive data points which form an angle such that:
+        angle < (PI - EPSILON) or angle > (PI + EPSILON)
+        The second of the three consecutive points is always the vertex of the angle.
+        If either the first point or the last point (or both) coincides with the vertex,
+        the angle is undefined and the LIC is not satisfied by those three points.
+        (0 <= EPSILON < PI)
+        """
+        if Input.NUMPOINTS < 3:
             return
+
+        for i in range(0, Input.NUMPOINTS-2):
+            angle = Utils.calcAngle(self, Input.POINTS[i], Input.POINTS[i+1], Input.POINTS[i+2])
+
+            # Check if the angle is within the specified range
+            if angle < (np.pi - Input.Parameters.EPSILON) or angle > (np.pi + Input.Parameters.EPSILON):
+                self.cmv[2] = True
+                return
 
     def LIC_3(self):
         """There exists at least one set of three consecutive data points that are the vertices of a triangle
@@ -297,7 +297,7 @@ class CMV:
                 break
     
       #CMV_condition_14
-     def LIC_14(self):
+    def LIC_14(self):
         """There exists at least one set of three data points, separated by exactly E_PTS and F_PTS consecutive
         intervening points, respectively, that are the vertices of a triangle with area greater
         than AREA1. In addition, there exist three data points (which can be the same or different
