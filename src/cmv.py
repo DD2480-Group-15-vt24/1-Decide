@@ -56,7 +56,32 @@ class CMV:
         return None
     
     def LIC_6(self):
-        return None
+        n_pts = Input.Parameters.N_PTS
+        distance = Input.Parameters.DIST
+        points = Input.POINTS
+        
+        if n_pts < 3:
+            return
+        
+        for i in range(Input.NUMPOINTS - n_pts):
+            start = points[i]
+            end = points[i + n_pts]
+            direction = np.subtract(start,end)
+
+            for j in range(n_pts):
+                if np.array_equal(start, end):
+                    if distance < math.dist(start, points[i+j]):
+                        self.cmv[6] = True
+                        return
+                    else:
+                        new_coordinate = np.subtract(points[i+j], start)
+                        projected = np.dot(direction, new_coordinate)/np.dot(direction, direction)*direction
+                        orthogonal = new_coordinate - projected
+                        if distance < np.dot(orthogonal, orthogonal)**(0.5):
+                            self.cmv[6] = True
+                            return
+        return
+        
 
     def LIC_7(self):
         """At least one set of two data points, separated indexically by K_PTS, 
