@@ -119,7 +119,38 @@ class CMV:
                 break
     
     def LIC_6(self):
-        return None
+        """There exists at least one set of N PTS consecutive data points such that at least one of the
+    points lies a distance greater than DIST from the line joining the first and last of these N PTS
+    points. If the first and last points of these N PTS are identical, then the calculated distance
+    to compare with DIST will be the distance from the coincident point to all other points of
+    the N PTS consecutive points. The condition is not met when NUMPOINTS < 3.
+    (3 ≤ N PTS ≤ NUMPOINTS), (0 ≤ DIST)"""
+        n_pts = Input.Parameters.N_PTS
+        distance = Input.Parameters.DIST
+        points = Input.POINTS
+        
+        if n_pts < 3:
+            return
+        
+        for i in range(Input.NUMPOINTS - n_pts):
+            start = points[i]
+            end = points[i + n_pts]
+            direction = np.subtract(start,end)
+
+            for j in range(n_pts):
+                if np.array_equal(start, end):
+                    if distance < math.dist(start, points[i+j]):
+                        self.cmv[6] = True
+                        return
+                    else:
+                        new_coordinate = np.subtract(points[i+j], start)
+                        projected = np.dot(direction, new_coordinate)/np.dot(direction, direction)*direction
+                        orthogonal = new_coordinate - projected
+                        if distance < np.dot(orthogonal, orthogonal)**(0.5):
+                            self.cmv[6] = True
+                            return
+        return
+        
 
     def LIC_7(self):
         """At least one set of two data points, separated indexically by K_PTS, 
