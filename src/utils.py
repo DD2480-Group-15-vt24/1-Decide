@@ -14,7 +14,7 @@ class Utils:
         return (a*b*c) / (((a+b+c))*(b+c-a)*(c+a-b)*(a+b-c))**(1/2) # Circumradius
     
     def minimum_distance(pointA, pointB, length):
-      """calculate the minimum distance and compare with parameter length"""
+        """calculate the minimum distance and compare with parameter length"""
         if length < math.dist(pointA,pointB):
             return True
         return False
@@ -25,20 +25,20 @@ class Utils:
 
     def determine_quadrant(self, point, array):
         """Determines which quadrant contains a given data point"""
-    x, y = point  
-    
-    if x >= 0 and y >= 0:
-        array[0] = True
-        return
-    if x < 0 and y >= 0:
-        array[1] = True
-        return
-    if x < 0 and y < 0:
-        array[2] = True
-        return
-    if x >= 0 and y < 0:
-        array[3] = True
-        return
+        x, y = point  
+        
+        if x >= 0 and y >= 0:
+            array[0] = True
+            return
+        if x < 0 and y >= 0:
+            array[1] = True
+            return
+        if x < 0 and y < 0:
+            array[2] = True
+            return
+        if x >= 0 and y < 0:
+            array[3] = True
+            return
 
 def calcAngle(self, p1, v, p2):
         """

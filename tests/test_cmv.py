@@ -13,10 +13,25 @@ class test_CMV:
             getattr(self, f'test_LIC_{i}_invalid')()
 
     def test_LIC_0_valid(self):
-        return
+        """Test the LIC_0 function with simple example data to generate a valid result"""
+        Input.NUMPOINTS = 7
+        Input.POINTS = np.array([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]])
+        Input.Parameters.LENGTH1 = 1
+
+        test = CMV(np.zeros(15, dtype=bool))
+        CMV.LIC_0(test)
+        assert test.cmv[0] == True
+    
 
     def test_LIC_0_invalid(self):
-        return
+        """Test the LIC_0 function with simple example data to generate a invalid result"""
+        Input.NUMPOINTS = 7
+        Input.POINTS = [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
+        Input.Parameters.LENGTH1 = 2
+
+        test = CMV(np.zeros(15, dtype=bool))
+        CMV.LIC_0(test)
+        assert test.cmv[0] == False
 
     def test_LIC_1_valid(self):
         """Test the LIC_1 function with simple example data to generate a valid result"""
