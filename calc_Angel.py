@@ -8,9 +8,9 @@ def calcAngle(self, p1, v, p2):
         calcAngle uses the calc_distance method to calculate the distances between points,
         and then it computes the angle using the law of cosines.
         """
-        d1 = self.calc_distance(p1, v)
-        d2 = self.calc_distance(p2, v)
-        d3 = self.calc_distance(p1, p2)
+        d1 = self.calc_distance(self, p1, v)
+        d2 = self.calc_distance(self, p2, v)
+        d3 = self.calc_distance(self, p1, p2)
 
         # Check for undefined angle
         if d1 == 0 or d2 == 0:
