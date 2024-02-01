@@ -56,6 +56,12 @@ class CMV:
         return None
     
     def LIC_6(self):
+        """There exists at least one set of N PTS consecutive data points such that at least one of the
+    points lies a distance greater than DIST from the line joining the first and last of these N PTS
+    points. If the first and last points of these N PTS are identical, then the calculated distance
+    to compare with DIST will be the distance from the coincident point to all other points of
+    the N PTS consecutive points. The condition is not met when NUMPOINTS < 3.
+    (3 ≤ N PTS ≤ NUMPOINTS), (0 ≤ DIST)"""
         n_pts = Input.Parameters.N_PTS
         distance = Input.Parameters.DIST
         points = Input.POINTS
