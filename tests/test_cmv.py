@@ -105,11 +105,28 @@ class test_CMV:
 
     def test_LIC_5_invalid(self):
         return
-    
+        
     def test_LIC_6_valid(self):
-        return
+        Input.NUMPOINTS = 5
+        Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]])
+        Input.Parameters.N_PTS = 3
+        Input.Parameters.DIST = 1.0
+
+        test = CMV(np.zeros(15, dtype=bool))
+        CMV.LIC_6(test)
+        assert test.cmv[6], 'Condition for test_LIC_6_valid is False'
+
 
     def test_LIC_6_invalid(self):
+        Input.NUMPOINTS = 5
+        Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]])
+        Input.Parameters.N_PTS = 3
+        Input.Parameters.DIST = 3.0
+
+        test = CMV(np.zeros(15, dtype=bool))
+        CMV.LIC_6(test)
+        assert not test.cmv[6], 'Condition for test_LIC_6_invalid is True'
+
         return
 
     def test_LIC_7_valid(self):
