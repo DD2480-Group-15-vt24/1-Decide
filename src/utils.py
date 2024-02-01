@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 class Utils:
 
@@ -23,10 +24,22 @@ class Utils:
         """Calculates the area of a triangle using cross product"""
         return 0.5 * np.abs(np.cross(x-y, x-z))
 
+    def minimum_distance(pointA, pointB, length):
+        """Calculates the distance and compares it with parameter length"""
+        if length < math.dist(pointA,pointB):
+            return True
+        return False
+
+    def maximum_distance(pointA, pointB, length):
+        """Calculates the distance and compares it with parameter length"""
+        if length > math.dist(pointA, pointB):
+            return True
+        return False
+
     def angle(vertex, first, last):
-      a = [vertex[0]-first[0], vertex[1]-first[1]]
-      b = [vertex[0]-last[0], vertex[1]-last[1]]
-      return np.arccos(np.dot(a, b)/(np.linalg.norm(a)*np.linalg.norm(b))
+        a = [vertex[0]-first[0], vertex[1]-first[1]]
+        b = [vertex[0]-last[0], vertex[1]-last[1]]
+        return np.arccos(np.dot(a, b)/(np.linalg.norm(a)*np.linalg.norm(b))
 
     def determine_quadrant(self, point, array):
         """Determines which quadrant contains a given data point"""
@@ -44,8 +57,7 @@ class Utils:
         if x >= 0 and y < 0:
             array[3] = True
             return
-
-      def calcAngle(self, p1, v, p2):
+     def calcAngle(self, p1, v, p2):
               """
               calcAngle method calculates the angle between three points (p1,v,p2) 
               and returns the angle in radians. 
@@ -62,3 +74,4 @@ class Utils:
               angle = np.arccos(np.clip(cos_theta, -1.0, 1.0))
 
               return angle
+

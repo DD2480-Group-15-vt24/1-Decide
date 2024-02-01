@@ -248,7 +248,28 @@ class CMV:
                 break
     
     def LIC_12(self):
-        return None
+    """There exists at least one set of two data points, separated by exactly K PTS consecutive
+    intervening points, which are a distance greater than the length, LENGTH1, apart. In addition, there exists at least one set of two data points (which can be the same or different from
+    the two data points just mentioned), separated by exactly K PTS consecutive intervening
+    points, that are a distance less than the length, LENGTH2, apart. Both parts must be true
+    for the LIC to be true. The condition is not met when NUMPOINTS < 3.
+    0 ≤ LENGTH2"""
+        length_1 = Input.Parameters.LENGTH1
+        length_2 = Input.Parameters.LENGTH2
+        k_pts = Input.Parameters.K_PTS
+        points = Input.POINTS
+
+        if Input.NUMPOINTS < 3 or length_1 < 0 or length_2 < 0:
+            return
+        for i in range(0, Input.NUMPOINTS - k_pts):
+            if Utils.minimum_distance(points[i], points[i+k_pts], length_1):
+                if Utils.maximum_distance(points[i], points[i+k_pts], length_2):
+                    self.cmv[12] = True
+                    return
+        return
+
+
+        
 
     def LIC_13(self):
         """Condition 1: At least one set of three data points seperated indexically by A_PTS and B_PTS respectively, CANNOT all be contained
