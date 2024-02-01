@@ -23,3 +23,6 @@ class Utils:
         """Calculates the area of a triangle using cross product"""
         return 0.5 * np.abs(np.cross(x-y, x-z))
 
+    def triangle_area(pointA, pointB, pointC):
+        area = 1/2 * np.abs(pointA[0]*(pointB[1]-pointC[1]) + pointB[0]*(pointC[1]-pointA[1]) + pointC[0]*(pointA[1]-pointB[1]))
+        return area
