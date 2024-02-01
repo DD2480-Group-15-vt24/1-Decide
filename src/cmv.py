@@ -1,5 +1,6 @@
 from data_structures import Input, np
 from utils import Utils
+import math
 
 class CMV:
     def __init__(self, array):
@@ -119,7 +120,38 @@ class CMV:
                 break
     
     def LIC_6(self):
-        return None
+        """There exists at least one set of N PTS consecutive data points such that at least one of the
+    points lies a distance greater than DIST from the line joining the first and last of these N PTS
+    points. If the first and last points of these N PTS are identical, then the calculated distance
+    to compare with DIST will be the distance from the coincident point to all other points of
+    the N PTS consecutive points. The condition is not met when NUMPOINTS < 3.
+    (3 ≤ N PTS ≤ NUMPOINTS), (0 ≤ DIST)"""
+        n_pts = Input.Parameters.N_PTS
+        distance = Input.Parameters.DIST
+        points = Input.POINTS
+        
+        if n_pts < 3:
+            return
+        
+        for i in range(Input.NUMPOINTS - n_pts):
+            start = points[i]
+            end = points[i + n_pts]
+            direction = np.subtract(start,end)
+
+            for j in range(n_pts):
+                if np.array_equal(start, end):
+                    if distance < math.dist(start, points[i+j]):
+                        self.cmv[6] = True
+                        return
+                    else:
+                        new_coordinate = np.subtract(points[i+j], start)
+                        projected = np.dot(direction, new_coordinate)/np.dot(direction, direction)*direction
+                        orthogonal = new_coordinate - projected
+                        if distance < np.dot(orthogonal, orthogonal)**(0.5):
+                            self.cmv[6] = True
+                            return
+        return
+        
 
     def LIC_7(self):
         """At least one set of two data points, separated indexically by K_PTS, 
@@ -156,7 +188,35 @@ class CMV:
                 break
     
     def LIC_9(self):
-        return None
+    """There exists at least one set of three data points separated by exactly C PTS and D PTS
+    consecutive intervening points, respectively, that form an angle such that:
+    angle < (PI−EPSILON) or angle > (PI+EPSILON)
+    The second point of the set of three points is always the vertex of the angle. If either the first
+    point or the last point (or both) coincide with the vertex, the angle is undefined and the LIC
+    is not satisfied by those three points. When NUMPOINTS < 5, the condition is not met.
+    1 ≤ C PTS, 1 ≤ D PTS
+    C PTS+D PTS ≤ NUMPOINTS−3"""
+        c_pts = Input.Parameters.C_PTS
+        d_pts = Input.Parameters.D_PTS
+        points = Input.POINTS
+        epsilon = Input.Parameters.EPSILON
+
+        if Input.NUMPOINTS < 5 or Input.NUMPOINTS - 3 < c_pts + d_pts:
+            return
+        
+        for i in range(0, Input.NUMPOINTS):
+            if i + 2 + c_pts + d_pts >= Input.NUMPOINTS:
+                return
+            first_point = points[i]
+            vertex = points[i+1+c_pts]
+            last_point = points[i+2+c_pts+d_pts]
+            if np.array_equal(vertex, first_point) or np.array_equal(vertex, last_point):
+                continue
+            if Utils.angle(vertex, first_point, last_point) < (math.pi - epsilon) or Utils.angle(vertex, first_point, last_point) > (math.pi + epsilon):
+                self.cmv[9] = True
+                return
+        return
+
 
     def LIC_10(self):
         """At least one set of three data points, separated indexically by E_PTS and K_PTS respectively, 
@@ -173,11 +233,43 @@ class CMV:
                 self.cmv[10] = True
                 break
 
+    # CMV_condition_11
     def LIC_11(self):
-        return None
+        """There exists at least one set of two data points, (X[i],Y[i]) and (X[j],Y[j]), separated by
+        exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j )
+        The condition is not met when NUMPOINTS < 3.
+        1 ≤ G PTS ≤ (NUMPOINTS - 2)
+        """
+        if Input.NUMPOINTS < 3 or Input.Parameters.G_PTS < 1 or Input.Parameters.G_PTS > (Input.NUMPOINTS - 2):
+            return
+        for i in range(Input.NUMPOINTS - Input.Parameters.G_PTS - 1):
+            if Input.POINTS[i+Input.Parameters.G_PTS+1, 0] - Input.POINTS[i, 0] < 0:
+                self.cmv[11] = True
+                break
     
     def LIC_12(self):
-        return None
+    """There exists at least one set of two data points, separated by exactly K PTS consecutive
+    intervening points, which are a distance greater than the length, LENGTH1, apart. In addition, there exists at least one set of two data points (which can be the same or different from
+    the two data points just mentioned), separated by exactly K PTS consecutive intervening
+    points, that are a distance less than the length, LENGTH2, apart. Both parts must be true
+    for the LIC to be true. The condition is not met when NUMPOINTS < 3.
+    0 ≤ LENGTH2"""
+        length_1 = Input.Parameters.LENGTH1
+        length_2 = Input.Parameters.LENGTH2
+        k_pts = Input.Parameters.K_PTS
+        points = Input.POINTS
+
+        if Input.NUMPOINTS < 3 or length_1 < 0 or length_2 < 0:
+            return
+        for i in range(0, Input.NUMPOINTS - k_pts):
+            if Utils.minimum_distance(points[i], points[i+k_pts], length_1):
+                if Utils.maximum_distance(points[i], points[i+k_pts], length_2):
+                    self.cmv[12] = True
+                    return
+        return
+
+
+        
 
     def LIC_13(self):
         """Condition 1: At least one set of three data points seperated indexically by A_PTS and B_PTS respectively, CANNOT all be contained
