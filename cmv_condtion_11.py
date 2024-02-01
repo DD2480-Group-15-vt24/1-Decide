@@ -1,24 +1,15 @@
-import numpy as np
+    # CMV_condition_11
+    def LIC_11(self):
+        """There exists at least one set of two data points, (X[i],Y[i]) and (X[j],Y[j]), separated by
+        exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j )
+        The condition is not met when NUMPOINTS < 3.
+        1 ≤ G PTS ≤ (NUMPOINTS - 2)
+        """
+        if Input.NUMPOINTS < 3 or Input.Parameters.G_PTS < 1 or Input.Parameters.G_PTS > (Input.NUMPOINTS - 2):
+            return
 
-# Global declaration
-POINTS=[]
-NUMPOINTS=0
-G_PTS=0
+        for i in range(Input.NUMPOINTS - Input.Parameters.G_PTS - 1):
+            if Input.POINTS[i+Input.Parameters.G_PTS+1, 0] - Input.POINTS[i, 0] < 0:
+                self.cmv[11] = True
+                break
 
-# CMV condition_11
-def lic_11(POINTS, G_PTS, NUMPOINTS):
-    # Check if the condition is applicable (NUMPOINTS >= 3)
-    #Check if G_PTS is in the valid range
-    if NUMPOINTS < 3 or not (1 <= G_PTS <= NUMPOINTS - 2):
-        return False
-    
-    # Iterate through the points to check LIC_11 condition
-    for i in range(NUMPOINTS - G_PTS - 1):
-        x1, y1 = POINTS[i]              #Coordinates for the first point
-        x2, y2 = POINTS[i + G_PTS + 1]  #Coordinates for the second point
-
-        # Check if X[j] - X[i] < 0
-        if x2 - x1 < 0:
-            # Return True if the condition is met for at least one set of points
-            return True
-    return False
