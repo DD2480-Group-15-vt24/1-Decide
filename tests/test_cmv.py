@@ -198,13 +198,6 @@ def test_LIC_7_invalid():
     assert not test.cmv[7], "Condition for test_LIC_7_invalid is True"
 
 
-def test_LIC_8_valid():
-    return
-
-
-def test_LIC_8_invalid():
-    return
-
 def test_LIC_9_valid():
     Input.NUMPOINTS = 6
     Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0], [5, 1]])
@@ -253,12 +246,25 @@ def test_LIC_10_invalid():
     assert not test.cmv[10], "Condition for test_LIC_10_invalid is True"
 
 
-def test_LIC_11_valid():
-    return
-
-
 def test_LIC_11_invalid():
-    return
+    """Test the LIC_11 function with simple example data to generate an invalid result"""
+    Input.NUMPOINTS = 4
+    Input.POINTS = np.array([[1, 1], [2, 1], [2, 2], [3, 2]])
+    Input.Parameters.G_PTS = 1
+
+    test = CMV(np.zeros(15, dtype=bool))
+    CMV.LIC_11(test)
+    assert not test.cmv[11], "Condition for test_LIC_11_invalid is True"
+
+def test_LIC_11_valid():
+    Input.NUMPOINTS = 5
+    Input.POINTS = np.array([[1,1], [2,1], [3,2], [2,3], [1,2]])
+    Input.Parameters.G_PTS = 2
+
+    test = CMV(np.zeros(15, dtype=bool))
+    test.LIC_11()
+    assert test.cmv[11], 'Condition for test_LIC_11_valid (First State) is False'
+
 
 
 def test_LIC_12_valid():
@@ -280,7 +286,7 @@ def test_LIC_13_valid():
 
     test = CMV(np.zeros(15, dtype=bool))
     CMV.LIC_13(test)
-    assert test.cmv[13], "Condition for test_LIC_13_valid is False"
+    assert test.cmv[13], 'Condition for test_LIC_13_valid is False'
 
 
 def test_LIC_13_invalid():
@@ -310,11 +316,3 @@ def test_LIC_13_invalid():
     test = CMV(np.zeros(15, dtype=bool))
     CMV.LIC_13(test)
     assert not test.cmv[13], "Condition (1) and (2) for test_LIC_13_invalid is True"
-
-
-def test_LIC_14_valid():
-    return
-
-
-def test_LIC_14_invalid():
-    return
