@@ -12,21 +12,8 @@ class CMV:
 
     def check_LICs(self):
         """Performs all LIC calculations and updates CMV"""
-        self.LIC_0()
-        self.LIC_1()
-        self.LIC_2()
-        self.LIC_3()
-        self.LIC_4()
-        self.LIC_5()
-        self.LIC_6()
-        self.LIC_7()
-        self.LIC_8()
-        self.LIC_9()
-        self.LIC_10()
-        self.LIC_11()
-        self.LIC_12()
-        self.LIC_13()
-        self.LIC_14()
+        for i in range(15):
+            getattr(self, f'LIC_{i}')()
 
     def LIC_0(self):
         """There exists at least one set of two consecutive data points that are a distance greater than
@@ -36,7 +23,7 @@ class CMV:
         if length < 0:
             return
         for i in range(0, Input.NUMPOINTS - 1):
-            if Utils.minimum_distance(Input.POINTS[i], Input.POINTS[i + 1], length):
+            if Utils.minimum_distance(self, Input.POINTS[i], Input.POINTS[i + 1], length):
                 self.cmv[0] = True
                 return
         else:
@@ -72,7 +59,7 @@ class CMV:
             return
 
         for i in range(0, Input.NUMPOINTS - 2):
-            angle = Utils.calcAngle(
+            angle = Utils.calc_angle(
                 self, Input.POINTS[i], Input.POINTS[i + 1], Input.POINTS[i + 2]
             )
 
@@ -140,35 +127,26 @@ class CMV:
         to compare with DIST will be the distance from the coincident point to all other points of
         the N PTS consecutive points. The condition is not met when NUMPOINTS < 3.
         (3 ≤ N PTS ≤ NUMPOINTS), (0 ≤ DIST)"""
-        n_pts = Input.Parameters.N_PTS
-        distance = Input.Parameters.DIST
-        points = Input.POINTS
-
-        if n_pts < 3:
+        if Input.Parameters.N_PTS < 3:
             return
 
-        for i in range(Input.NUMPOINTS - n_pts):
-            start = points[i]
-            end = points[i + n_pts]
-            direction = np.subtract(start, end)
+        for i in range(Input.NUMPOINTS - Input.Parameters.N_PTS + 1): # Bug edit: Edge case when NUMPOINTS = N_PTS
+            start = Input.POINTS[i]
+            end = Input.POINTS[i + Input.Parameters.N_PTS - 1] # Bug edit: if N_PTS = 3 --> end = POINTS[i+N_PTS-1] = POINTS[2]
+            direction = start - end
 
-            for j in range(n_pts):
-                if np.array_equal(start, end):
-                    if distance < math.dist(start, points[i + j]):
+            for j in range(1, Input.Parameters.N_PTS - 1): # Bug edit: Exclude start and end; unnecessary for line 122
+                if Utils.calc_distance(self, start, end) == 0:
+                    if Input.Parameters.DIST < Utils.calc_distance(self, start, Input.POINTS[i+j]):
                         self.cmv[6] = True
                         return
-                    else:
-                        new_coordinate = np.subtract(points[i + j], start)
-                        projected = (
-                            np.dot(direction, new_coordinate)
-                            / np.dot(direction, direction)
-                            * direction
-                        )
-                        orthogonal = new_coordinate - projected
-                        if distance < np.dot(orthogonal, orthogonal) ** (0.5):
-                            self.cmv[6] = True
-                            return
-        return
+                else: # Bug edit: non-identical start- and endpoints
+                    new_coordinate = Input.POINTS[i+j] # An N point between start and end
+                    distance = np.abs(np.cross(start - end, end - new_coordinate)) / Utils.calc_distance(self, start, end) # Perpendicular distance from new_coordinate and line formed between start and end
+
+                    if Input.Parameters.DIST < distance:
+                        self.cmv[6] = True
+                        return
 
     def LIC_7(self):
         """At least one set of two data points, separated indexically by K_PTS,
@@ -251,9 +229,9 @@ class CMV:
                 vertex, last_point
             ):
                 continue
-            if Utils.angle(vertex, first_point, last_point) < (
+            if Utils.calc_angle(self, first_point, vertex, last_point) < (
                 math.pi - epsilon
-            ) or Utils.angle(vertex, first_point, last_point) > (math.pi + epsilon):
+            ) or Utils.calc_angle(self, first_point, vertex, last_point) > (math.pi + epsilon):
                 self.cmv[9] = True
                 return
         return
