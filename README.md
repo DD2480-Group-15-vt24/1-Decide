@@ -66,7 +66,19 @@ Based on the Essence standard v1.2 criteria for evaluating a team's way of worki
 
 ## Contributors
 
-- Olle Jenrström
-- Love Lindgren
-- Selma Özdere
-- Siham Shahoud
+Olle Jenrström
+Love Lindgren
+Selma Özdere
+Siham Shahoud
+
+# Statement of contribution
+
+The work was devided as follows:
+
+Olle Jenrström: PUM, FUV, README and DECIDE
+
+Love Lindgren: LIC1, LIC4, LIC7, LIC10, LIC13 and their test functions
+
+Siham Shahoud: LIC2, LIC5, LIC8, LIC11, LIC14 and their test functions
+
+Selma Özdere: LIC0, LIC3, LIC6, LIC9, LIC12 and their test functions
