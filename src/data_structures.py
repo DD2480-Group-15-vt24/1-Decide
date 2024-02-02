@@ -21,7 +21,7 @@ class Input:
         RADIUS1 = 0
         EPSILON = 0
         AREA1 = 0
-        QPTS = 0
+        Q_PTS = 0
         QUADS = 0
         DIST = 0
         N_PTS = 0
@@ -35,4 +35,4 @@ class Input:
         G_PTS = 0
         LENGTH2 = 0
         RADIUS2 = 0
-        AREAD2 = 0
+        AREA2 = 0

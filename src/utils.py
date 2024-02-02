@@ -2,6 +2,7 @@ import numpy as np
 import math
 
 class Utils:
+    """Helper functions used for calculating the values of each LIC in CMV"""
 
     def calc_distance(self, x, y):
         """Calculates Euclidian distance between two planar data points"""
@@ -12,38 +13,28 @@ class Utils:
         a = Utils.calc_distance(self, x, y)
         b = Utils.calc_distance(self, x, z)
         c = Utils.calc_distance(self, y, z)
-        return (a*b*c) / (((a+b+c))*(b+c-a)*(c+a-b)*(a+b-c))**(1/2) # Circumradius
-    
-    def minimum_distance(pointA, pointB, length):
-        """calculate the minimum distance and compare with parameter length"""
-        if length < math.dist(pointA,pointB):
-            return True
-        return False
+        return (a*b*c) / (((a+b+c))*(b+c-a)*(c+a-b)*(a+b-c))**(1/2)
     
     def calc_triangle_area(self, x, y, z):
         """Calculates the area of a triangle using cross product"""
         return 0.5 * np.abs(np.cross(x-y, x-z))
 
-    def minimum_distance(pointA, pointB, length):
+    def minimum_distance(self, x, y, length):
         """Calculates the distance and compares it with parameter length"""
-        if length < math.dist(pointA,pointB):
-            return True
-        return False
+        return length < Utils.calc_distance(self, x, y)
 
-    def maximum_distance(pointA, pointB, length):
+    def maximum_distance(self, x, y, length):
         """Calculates the distance and compares it with parameter length"""
-        if length > math.dist(pointA, pointB):
-            return True
-        return False
+        return length > Utils.calc_distance(self, x, y)
 
-    def angle(vertex, first, last):
+    def angle(self, vertex, first, last):
         a = [vertex[0]-first[0], vertex[1]-first[1]]
         b = [vertex[0]-last[0], vertex[1]-last[1]]
-        return np.arccos(np.dot(a, b)/(np.linalg.norm(a)*np.linalg.norm(b))
+        return np.arccos(np.dot(a, b) / (np.linalg.norm(a)*np.linalg.norm(b)))
 
     def determine_quadrant(self, point, array):
         """Determines which quadrant contains a given data point"""
-        x, y = point  
+        x, y = point
 
         if x >= 0 and y >= 0:
             array[0] = True
@@ -58,10 +49,8 @@ class Utils:
             array[3] = True
             return
 
-
-def calcAngle(self, p1, v, p2):
-        """
-        calcAngle method calculates the angle between three points (p1,v,p2) 
+    def calcAngle(self, p1, v, p2):
+        """calcAngle method calculates the angle between three points (p1,v,p2) 
         and returns the angle in radians. 
         """
         d1 = Utils.calc_distance(self, p1, v)

@@ -20,18 +20,18 @@ class test_CMV:
 
         test = CMV(np.zeros(15, dtype=bool))
         CMV.LIC_0(test)
-        assert test.cmv[0] == True
+        assert test.cmv[0], 'Condition for test_LIC_0_valid is False'
     
 
     def test_LIC_0_invalid(self):
         """Test the LIC_0 function with simple example data to generate a invalid result"""
         Input.NUMPOINTS = 7
-        Input.POINTS = [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
+        Input.POINTS = np.array([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]])
         Input.Parameters.LENGTH1 = 2
 
         test = CMV(np.zeros(15, dtype=bool))
         CMV.LIC_0(test)
-        assert test.cmv[0] == False
+        assert not test.cmv[0], 'Condition for test_LIC_0_invalid is True'
 
     def test_LIC_1_valid(self):
         """Test the LIC_1 function with simple example data to generate a valid result"""
@@ -59,10 +59,9 @@ class test_CMV:
     def test_LIC_2_invalid(self):
         return
     
-
     def test_LIC_3_valid(self):
         Input.NUMPOINTS = 4
-        Input.POINTS = np.array([[0, 0], [1, 0], [1, 1], [0, 1]])
+        Input.POINTS = np.array([[0, 0], [2, 0], [2, 1], [0, 1]])
         Input.Parameters.AREA1 = 0.5
 
         test = CMV(np.zeros(15, dtype=bool))
@@ -71,8 +70,8 @@ class test_CMV:
 
     def test_LIC_3_invalid(self):
         Input.NUMPOINTS = 4
-        Input.POINTS = np.array([[0, 0], [1, 0], [1, 1], [0, 1]])
-        Input.Parameters.AREA1 = 2.0
+        Input.POINTS = np.array([[0, 0], [2, 0], [2, 1], [0, 1]])
+        Input.Parameters.AREA1 = 2
 
         test = CMV(np.zeros(15, dtype=bool))
         CMV.LIC_3(test)
@@ -108,25 +107,38 @@ class test_CMV:
         
     def test_LIC_6_valid(self):
         Input.NUMPOINTS = 5
-        Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]])
+        Input.POINTS = np.array([[0, 0], [1, 1], [0, 0], [3, 1], [4, 0]])
         Input.Parameters.N_PTS = 3
-        Input.Parameters.DIST = 1.0
+        Input.Parameters.DIST = 1
 
+        # Condition 1: Identical start- and endpoints
         test = CMV(np.zeros(15, dtype=bool))
         CMV.LIC_6(test)
         assert test.cmv[6], 'Condition for test_LIC_6_valid is False'
 
+        # Condition 2: Different start- and endpoints
+        Input.POINTS = np.array([[0, 0], [1, 1], [2, 2.5], [3, 1], [4, 0]])
+        test = CMV(np.zeros(15, dtype=bool))
+        CMV.LIC_6(test)
+        assert test.cmv[6], 'Condition for test_LIC_6_valid is False'
 
     def test_LIC_6_invalid(self):
         Input.NUMPOINTS = 5
-        Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]])
+        Input.POINTS = np.array([[0, 0], [0.5, 0], [0, 0], [3, 1], [4, 0]])
         Input.Parameters.N_PTS = 3
-        Input.Parameters.DIST = 3.0
+        Input.Parameters.DIST = 1.0
 
+        # Condition 1: Identical start- and endpoints
         test = CMV(np.zeros(15, dtype=bool))
         CMV.LIC_6(test)
         assert not test.cmv[6], 'Condition for test_LIC_6_invalid is True'
 
+        # Condition 2: Different start- and endpoints
+        Input.POINTS = np.array([[0, 0], [1, 1], [2, 2.5], [3, 1], [4, 0]])
+        Input.Parameters.DIST = 2
+        test = CMV(np.zeros(15, dtype=bool))
+        CMV.LIC_6(test)
+        assert not test.cmv[6], 'Condition for test_LIC_6_invalid is True'
         return
 
     def test_LIC_7_valid(self):
@@ -245,7 +257,6 @@ class test_CMV:
 
     def test_LIC_14_invalid(self):
         return
-
 
 if __name__ == "__main__":
     tests = test_CMV()
