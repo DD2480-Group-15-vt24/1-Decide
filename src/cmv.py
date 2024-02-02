@@ -319,9 +319,9 @@ class CMV:
         cond1 = False
         cond2 = True
         for i in range(0, Input.NUMPOINTS - k_pts):
-            if Utils.minimum_distance(points[i], points[i + k_pts], length_1):
+            if Utils.minimum_distance(self, points[i], points[i + k_pts], length_1):
                 cond1 = True
-            if Utils.maximum_distance(points[i], points[i + k_pts], length_2):
+            if Utils.maximum_distance(self, points[i], points[i + k_pts], length_2):
                 cond2 = True
             if cond1 and cond2:
                 self.cmv[12] = True
