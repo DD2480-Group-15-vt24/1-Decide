@@ -320,12 +320,17 @@ class CMV:
 
         if Input.NUMPOINTS < 3 or length_1 < 0 or length_2 < 0:
             return
+            
+        cond1 = False
+        cond2 = True
         for i in range(0, Input.NUMPOINTS - k_pts):
             if Utils.minimum_distance(points[i], points[i + k_pts], length_1):
-                if Utils.maximum_distance(points[i], points[i + k_pts], length_2):
-                    self.cmv[12] = True
-                    return
-        return
+                cond1 = True
+            if Utils.maximum_distance(points[i], points[i + k_pts], length_2):
+                cond2 = True
+            if cond1 and cond2:
+                self.cmv[12] = True
+                break
 
     def LIC_13(self):
         """Condition 1: At least one set of three data points seperated indexically by A_PTS and B_PTS respectively, CANNOT all be contained
