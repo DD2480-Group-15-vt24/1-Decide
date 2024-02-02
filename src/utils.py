@@ -34,9 +34,6 @@ class Utils:
         a = vertex - first
         b = vertex - last
 
-        if a.all() == 0 or b.all() == 0:  # Undefined angle
-            return
-
         return np.arccos(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
     def determine_quadrant(self, point, array):
