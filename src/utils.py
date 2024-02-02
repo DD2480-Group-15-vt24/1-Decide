@@ -34,7 +34,6 @@ class Utils:
         a = vertex - first
         b = vertex - last
 
-
         return np.arccos(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
     def determine_quadrant(self, point, array):
