@@ -1,4 +1,4 @@
-def generate_fuv(pum: list[list[bool]], puv: list[bool], size: int = 5) -> list[bool]:
+def generate_fuv(pum: list[list[bool]], puv: list[bool], size: int = 15) -> list[bool]:
     """
     Generates the Final Unlocking Vector (FUV) based on the Preliminary Unlocking Matrix (PUM)
     and the Preliminary Unlocking Vector (PUV).
