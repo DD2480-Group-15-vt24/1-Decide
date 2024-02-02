@@ -377,7 +377,10 @@ class CMV:
         ):
             return
 
-        # Check the first part of the condition (greater than AREA1)
+        condition1_met = False
+        condition2_met = False
+
+        # Check all triangles to see if any satisfy the first condition (greater than AREA1)
         for i in range(
             Input.NUMPOINTS - Input.Parameters.E_PTS - Input.Parameters.F_PTS - 2
         ):
@@ -389,23 +392,24 @@ class CMV:
             )
 
             if g_area > Input.Parameters.AREA1:
-                # Check the second part of the condition (less than AREA2)
-                for j in range(
-                    i + Input.Parameters.E_PTS + Input.Parameters.F_PTS + 2,
-                    Input.NUMPOINTS
-                    - Input.Parameters.E_PTS
-                    - Input.Parameters.F_PTS
-                    - 2,
-                ):
-                    l_area = Utils.calc_triangle_area(
-                        self,
-                        Input.POINTS[j],
-                        Input.POINTS[j + Input.Parameters.E_PTS + 1],
-                        Input.POINTS[
-                            j + Input.Parameters.E_PTS + Input.Parameters.F_PTS + 2
-                        ],
-                    )
+                condition1_met = True
+                break  # Found a triangle that satisfies the first condition
 
-                    if l_area < Input.Parameters.AREA2:
-                        self.cmv[14] = True
-                        return
+        # Check all triangles to see if any satisfy the second condition (less than AREA2)
+        for i in range(
+            Input.NUMPOINTS - Input.Parameters.E_PTS - Input.Parameters.F_PTS - 2
+        ):
+            l_area = Utils.calc_triangle_area(
+                self,
+                Input.POINTS[i],
+                Input.POINTS[i + Input.Parameters.E_PTS + 1],
+                Input.POINTS[i + Input.Parameters.E_PTS + Input.Parameters.F_PTS + 2],
+            )
+
+            if l_area < Input.Parameters.AREA2:
+                condition2_met = True
+                break  # Found a triangle that satisfies the second condition
+
+        # Only set self.cmv[14] to True if both conditions are met
+        if condition1_met and condition2_met:
+            self.cmv[14] = True
