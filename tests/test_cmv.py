@@ -2,6 +2,7 @@ from src.cmv import CMV
 from src.data_structures import Input
 import numpy as np
 
+
 def test_LIC_0_valid():
     """Test the LIC_0 function with simple example data to generate a valid result"""
     Input.NUMPOINTS = 7

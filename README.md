@@ -17,10 +17,6 @@
 ├── docs/                       # Documentation
 │   └── README.md               # Technical documentatoion
 │
-├── examples/                   # Example scripts and data
-│   ├── example_input.py        # Example inputs to the system
-│   └── run_example.py          # Script to run the system with example inputs
-│
 ├── main.py                 	# Main entry point of the program
 ├── requirements.txt            # Project dependencies
 ├── decide.pdf                  # Technical Specification
@@ -62,8 +58,11 @@ Black is used for formatting the procjet. Format the code by using `black .`
 
 ## Running the test suite
 
-TODO...
+Run `pystest` from the root
 
 ## Contributors
 
-TODO...
+Olle Jenrström
+Love Lindgren
+Selma Özdere
+Siham Shahoud

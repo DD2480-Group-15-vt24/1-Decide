@@ -13,7 +13,7 @@ class CMV:
     def check_LICs(self):
         """Performs all LIC calculations and updates CMV"""
         for i in range(15):
-            getattr(self, f'LIC_{i}')()
+            getattr(self, f"LIC_{i}")()
 
     def LIC_0(self):
         """There exists at least one set of two consecutive data points that are a distance greater than
@@ -23,7 +23,9 @@ class CMV:
         if length < 0:
             return
         for i in range(0, Input.NUMPOINTS - 1):
-            if Utils.minimum_distance(self, Input.POINTS[i], Input.POINTS[i + 1], length):
+            if Utils.minimum_distance(
+                self, Input.POINTS[i], Input.POINTS[i + 1], length
+            ):
                 self.cmv[0] = True
                 return
         else:
@@ -130,19 +132,32 @@ class CMV:
         if Input.Parameters.N_PTS < 3:
             return
 
-        for i in range(Input.NUMPOINTS - Input.Parameters.N_PTS + 1): # Bug edit: Edge case when NUMPOINTS = N_PTS
+        for i in range(
+            Input.NUMPOINTS - Input.Parameters.N_PTS + 1
+        ):  # Bug edit: Edge case when NUMPOINTS = N_PTS
             start = Input.POINTS[i]
-            end = Input.POINTS[i + Input.Parameters.N_PTS - 1] # Bug edit: if N_PTS = 3 --> end = POINTS[i+N_PTS-1] = POINTS[2]
-            direction = start - end
+            end = Input.POINTS[
+                i + Input.Parameters.N_PTS - 1
+            ]  # Bug edit: if N_PTS = 3 --> end = POINTS[i+N_PTS-1] = POINTS[2]
 
-            for j in range(1, Input.Parameters.N_PTS - 1): # Bug edit: Exclude start and end; unnecessary for line 122
+            for j in range(
+                1, Input.Parameters.N_PTS - 1
+            ):  # Bug edit: Exclude start and end; unnecessary for line 122
                 if Utils.calc_distance(self, start, end) == 0:
-                    if Input.Parameters.DIST < Utils.calc_distance(self, start, Input.POINTS[i+j]):
+                    if Input.Parameters.DIST < Utils.calc_distance(
+                        self, start, Input.POINTS[i + j]
+                    ):
                         self.cmv[6] = True
                         return
-                else: # Bug edit: non-identical start- and endpoints
-                    new_coordinate = Input.POINTS[i+j] # An N point between start and end
-                    distance = np.abs(np.cross(start - end, end - new_coordinate)) / Utils.calc_distance(self, start, end) # Perpendicular distance from new_coordinate and line formed between start and end
+                else:  # Bug edit: non-identical start- and endpoints
+                    new_coordinate = Input.POINTS[
+                        i + j
+                    ]  # An N point between start and end
+                    distance = np.abs(
+                        np.cross(start - end, end - new_coordinate)
+                    ) / Utils.calc_distance(
+                        self, start, end
+                    )  # Perpendicular distance from new_coordinate and line formed between start and end
 
                     if Input.Parameters.DIST < distance:
                         self.cmv[6] = True
@@ -231,7 +246,9 @@ class CMV:
                 continue
             if Utils.calc_angle(self, first_point, vertex, last_point) < (
                 math.pi - epsilon
-            ) or Utils.calc_angle(self, first_point, vertex, last_point) > (math.pi + epsilon):
+            ) or Utils.calc_angle(self, first_point, vertex, last_point) > (
+                math.pi + epsilon
+            ):
                 self.cmv[9] = True
                 return
         return
@@ -298,7 +315,7 @@ class CMV:
 
         if Input.NUMPOINTS < 3 or length_1 < 0 or length_2 < 0:
             return
-            
+
         cond1 = False
         cond2 = True
         for i in range(0, Input.NUMPOINTS - k_pts):
