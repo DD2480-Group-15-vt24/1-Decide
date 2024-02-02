@@ -176,7 +176,7 @@ def test_LIC_8_valid():
 def test_LIC_8_invalid():
     return
 
-def test_LIC_9_valid(self):
+def test_LIC_9_valid():
     Input.NUMPOINTS = 6
     Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0], [5, 1]])
     Input.Parameters.C_PTS = 1
@@ -187,7 +187,7 @@ def test_LIC_9_valid(self):
     CMV.LIC_9(test)
     assert test.cmv[9], 'Condition for test_LIC_9_valid is False'
 
-def test_LIC_9_invalid(self):
+def test_LIC_9_invalid():
     Input.NUMPOINTS = 6
     Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0], [5, 1]])
     Input.Parameters.C_PTS = 1
@@ -289,7 +289,3 @@ def test_LIC_14_valid():
 
 def test_LIC_14_invalid():
     return
-
-
-if __name__ == "__main__":
-    tests = test_CMV()
