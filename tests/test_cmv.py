@@ -198,12 +198,37 @@ def test_LIC_7_invalid():
     assert not test.cmv[7], "Condition for test_LIC_7_invalid is True"
 
 
-def test_LIC_8_valid():
-    return
-
-
 def test_LIC_8_invalid():
-    return
+    Input.NUMPOINTS = 6
+    Input.POINTS = np.array([[1, 1], [2, 1], [3, 2], [4, 3], [5, 4], [6, 5]])
+    Input.Parameters.A_PTS = 2
+    Input.Parameters.B_PTS = 2
+    Input.Parameters.RADIUS1 = 1.0
+
+    test = CMV(np.zeros(15, dtype=bool))
+    test.LIC_8()
+    assert not test.cmv[8], "Condition for test_LIC_8_invalid is true"
+
+
+def test_LIC_8_valid():
+    Input.NUMPOINTS = 5
+    Input.Parameters.A_PTS = 1
+    Input.Parameters.B_PTS = 1
+    Input.Parameters.RADIUS1 = 1
+
+    Input.POINTS = np.array(
+        [
+            [0, 0],
+            [10, 0],
+            [5, 8],
+            [3, 3],
+            [4, 4],
+        ]
+    )
+    test = CMV(np.zeros(15, dtype=bool))
+    CMV.LIC_8(test)
+    assert test.cmv[8], "Condition for test_LIC_8_valid is False"
+
 
 
 def test_LIC_9_valid():
@@ -256,12 +281,25 @@ def test_LIC_10_invalid():
     assert not test.cmv[10], "Condition for test_LIC_10_invalid is True"
 
 
-def test_LIC_11_valid():
-    return
-
-
 def test_LIC_11_invalid():
-    return
+    """Test the LIC_11 function with simple example data to generate an invalid result"""
+    Input.NUMPOINTS = 4
+    Input.POINTS = np.array([[1, 1], [2, 1], [2, 2], [3, 2]])
+    Input.Parameters.G_PTS = 1
+
+    test = CMV(np.zeros(15, dtype=bool))
+    CMV.LIC_11(test)
+    assert not test.cmv[11], "Condition for test_LIC_11_invalid is True"
+
+
+def test_LIC_11_valid():
+    Input.NUMPOINTS = 5
+    Input.POINTS = np.array([[1, 1], [2, 1], [3, 2], [2, 3], [1, 2]])
+    Input.Parameters.G_PTS = 2
+
+    test = CMV(np.zeros(15, dtype=bool))
+    test.LIC_11()
+    assert test.cmv[11], "Condition for test_LIC_11_valid (First State) is False"
 
 
 def test_LIC_12_valid():
@@ -332,8 +370,26 @@ def test_LIC_13_invalid():
 
 
 def test_LIC_14_valid():
-    return
+    Input.NUMPOINTS = 6
+    Input.Parameters.E_PTS = 1
+    Input.Parameters.F_PTS = 1
+    Input.Parameters.AREA1 = 0.5
+    Input.Parameters.AREA2 = 5
 
+    Input.POINTS = np.array(
+        [
+            [0, 0],
+            [1, 0],
+            [0, 1],
+            [2, 0],
+            [2, 2],
+            [0, 2],
+        ]
+    )
 
-def test_LIC_14_invalid():
-    return
+    cmv = CMV([False] * 15)
+
+    cmv.LIC_14()
+
+    # Assert that cmv[14] is set to True
+    assert cmv.cmv[14] is True, "LIC_14 did not set cmv[14] to True as expected"
