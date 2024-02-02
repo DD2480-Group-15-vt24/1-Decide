@@ -261,7 +261,7 @@ def test_LIC_11_invalid():
     return
 
 
-def test_LIC_12_valid(self):
+def test_LIC_12_valid():
     Input.NUMPOINTS = 5
     Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]])
     Input.Parameters.LENGTH1 = 0.5
@@ -272,7 +272,7 @@ def test_LIC_12_valid(self):
     CMV.LIC_12(test)
     assert test.cmv[12], 'Condition for test_LIC_12_valid is False'
 
-def test_LIC_12_invalid(self):
+def test_LIC_12_invalid():
     Input.NUMPOINTS = 5
     Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]])
     Input.Parameters.LENGTH1 = 2
