@@ -60,6 +60,10 @@ Black is used for formatting the procjet. Format the code by using `black .`
 
 Run `pystest` from the root
 
+## Way of working
+
+Based on the Essence standard v1.2 criteria for evaluating a team's way of working, our team is currently at the "Foundation Established" stage because we have picked the main practices and tools we need to work together, but we haven't started using them in our actual work yet. The reason we're here is that we're a new team with some members who are new to coding and using tools like git, and we're facing challenges in communicating effectively, partly because we use Discord poorly and we have team members who speak different languages and English is no ones first language. This makes it hard for everyone to understand each other well. To move to the "In Use" stage, where we're supposed to be actively using our chosen practices and tools, we need to get better at complying to the assignment instructions, find better ways to communicate despite our language differences, and maybe look for other tools that can help us work together more smoothly.
+
 ## Contributors
 
 Olle Jenrström
