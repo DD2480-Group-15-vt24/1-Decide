@@ -192,7 +192,7 @@ def test_LIC_9_invalid(self):
     Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0], [5, 1]])
     Input.Parameters.C_PTS = 1
     Input.Parameters.D_PTS = 1
-    Input.Parameters.EPSILON = 0.01
+    Input.Parameters.EPSILON = 2
 
     test = CMV(np.zeros(15, dtype=bool))
     CMV.LIC_9(test)
@@ -289,3 +289,7 @@ def test_LIC_14_valid():
 
 def test_LIC_14_invalid():
     return
+
+
+if __name__ == "__main__":
+    tests = test_CMV()
