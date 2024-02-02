@@ -1,11 +1,12 @@
 import numpy as np
 
+
 class Input:
     def __init__(self, input_type):
         self.value = input_type
 
     def __repr__(self):
-        return f'{self.value}'
+        return f"{self.value}"
 
     # Input matrices
     LCM = np.zeros((15, 15))
