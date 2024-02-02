@@ -265,7 +265,7 @@ def test_LIC_12_valid():
     Input.NUMPOINTS = 5
     Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]])
     Input.Parameters.LENGTH1 = 0.5
-    Input.Parameters.LENGTH2 = 1
+    Input.Parameters.LENGTH2 = 2
     Input.Parameters.K_PTS = 1
 
     test = CMV(np.zeros(15, dtype=bool))
