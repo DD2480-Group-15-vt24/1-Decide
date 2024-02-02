@@ -3,6 +3,7 @@ from utils import Utils
 import math
 
 class CMV:
+    """Used to calculate the values of each LIC in the CMV"""
     def __init__(self, array):
         self.cmv = array
     
@@ -52,7 +53,7 @@ class CMV:
             return
 
         for i in range(Input.NUMPOINTS-2):
-            angle = Utils.calcAngle(self, Input.POINTS[i], Input.POINTS[i+1], Input.POINTS[i+2])
+            angle = Utils.calc_angle(self, Input.POINTS[i], Input.POINTS[i+1], Input.POINTS[i+2])
             if angle < (np.pi - Input.Parameters.EPSILON) or angle > (np.pi + Input.Parameters.EPSILON):
                 self.cmv[2] = True
                 return
@@ -180,7 +181,7 @@ class CMV:
 
             if np.array_equal(vertex, first_point) or np.array_equal(vertex, last_point):
                 continue
-            if Utils.angle(self, vertex, first_point, last_point) < (math.pi - Input.Parameters.EPSILON) or Utils.angle(vertex, first_point, last_point) > (math.pi + Input.Parameters.EPSILON):
+            if Utils.calc_angle(self, first_point, vertex, last_point) < (math.pi - Input.Parameters.EPSILON) or Utils.calc_angle(self, first_point, vertex, last_point) > (math.pi + Input.Parameters.EPSILON):
                 self.cmv[9] = True
                 return
 
