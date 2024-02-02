@@ -262,12 +262,26 @@ def test_LIC_11_invalid():
 
 
 def test_LIC_12_valid():
-    return
+    Input.NUMPOINTS = 5
+    Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]])
+    Input.Parameters.LENGTH1 = 0.5
+    Input.Parameters.LENGTH2 = 1
+    Input.Parameters.K_PTS = 1
 
+    test = CMV(np.zeros(15, dtype=bool))
+    CMV.LIC_12(test)
+    assert test.cmv[12], 'Condition for test_LIC_12_valid is False'
 
 def test_LIC_12_invalid():
-    return
+    Input.NUMPOINTS = 5
+    Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]])
+    Input.Parameters.LENGTH1 = 2
+    Input.Parameters.LENGTH2 = 0.5
+    Input.Parameters.K_PTS = 1
 
+    test = CMV(np.zeros(15, dtype=bool))
+    CMV.LIC_12(test)
+    assert not test.cmv[12], 'Condition for test_LIC_12_invalid is True'
 
 def test_LIC_13_valid():
     """Test the LIC_10 function with simple example data to generate a valid result"""
