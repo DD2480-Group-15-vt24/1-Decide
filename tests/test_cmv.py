@@ -177,7 +177,6 @@ def test_LIC_8_invalid():
     return
 
 def test_LIC_9_valid(self):
-    return
     Input.NUMPOINTS = 6
     Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0], [5, 1]])
     Input.Parameters.C_PTS = 1
@@ -189,7 +188,6 @@ def test_LIC_9_valid(self):
     assert test.cmv[9], 'Condition for test_LIC_9_valid is False'
 
 def test_LIC_9_invalid(self):
-    return
     Input.NUMPOINTS = 6
     Input.POINTS = np.array([[0, 0], [1, 1], [2, 2], [3, 1], [4, 0], [5, 1]])
     Input.Parameters.C_PTS = 1
