@@ -1,11 +1,12 @@
 import numpy as np
 
+
 class Input:
     def __init__(self, input_type):
         self.value = input_type
 
     def __repr__(self):
-        return f'{self.value}'
+        return f"{self.value}"
 
     # Input matrices
     LCM = np.zeros((15, 15))
@@ -21,7 +22,7 @@ class Input:
         RADIUS1 = 0
         EPSILON = 0
         AREA1 = 0
-        QPTS = 0
+        Q_PTS = 0
         QUADS = 0
         DIST = 0
         N_PTS = 0
@@ -35,4 +36,4 @@ class Input:
         G_PTS = 0
         LENGTH2 = 0
         RADIUS2 = 0
-        AREAD2 = 0
+        AREA2 = 0
